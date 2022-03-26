@@ -1,0 +1,13 @@
+---
+- name: playbook
+- hosts: all   
+  remote_user: ansible   
+  become: true   
+  tasks:
+  - name: install SSM Agent
+    shell:
+      - 'yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm'
+      - argument: '/install /quiet /norestart'
+        arguments_activation: '/q /log install.log /norestart CODE={{ aws_ssm_activation_code }} ID={{ aws_ssm_activation_id }} REGION={{ aws_ssm_ec2_region }}'
+      - sudo systemctl enable amazon-ssm-agent
+      - sudo systemctl start amazon-ssm-agent
