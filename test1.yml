@@ -10,7 +10,7 @@
             dest: /etc/agent
             state: latest
       - name: install DR agent in all servers
-        ansible.builtin.get:
+          ansible.builtin.get:
         name: python3 aws-replication-installer-init.py
         region: us-east-1
         access key: "{{ my_access_key }}"
