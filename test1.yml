@@ -1,0 +1,17 @@
+---
+- name: playbook
+  host: webservers
+  become: yes
+  remote_user: ansible
+  Tasks:
+      - name: install DRS agent 
+        yum: 
+            url:  https://aws-elastic-disaster-recovery-us-east-1.s3.amazonaws.com/latest/linux/aws-replication-installer-init.py
+            dest: /etc/agent
+            state: latest
+      - name: install DR agent in all servers
+        ansible.builtin.get:
+        name: python3 aws-replication-installer-init.py
+        region: us-east-1
+        access key: "{{ my_access_key }}"
+        secret access key: "{{ my_secret_key }}"
