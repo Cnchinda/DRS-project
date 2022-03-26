@@ -1,0 +1,18 @@
+---
+  name: play
+  host: webservers
+  become: yes
+  become_user: root
+  task:
+    - DRS_Agent_info:
+        auth:
+          aws_access_key: "{{ my_access_key }}"
+          aws_secret_key: "{{ my_secret_key }}"
+          aws_ec2_region: "{{ my_region }}"
+  Tasks:
+        - name: install DRS agent 
+          yum: 
+            url:  https://aws-elastic-disaster-recovery-us-east-1.s3.amazonaws.com/latest/linux/aws-replication-installer-init.py
+            dest: /etc/agent
+            state: latest
+            
